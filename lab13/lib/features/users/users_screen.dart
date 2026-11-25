@@ -8,6 +8,7 @@ import 'package:users_api/features/settings/settings_screen.dart';
 import 'package:users_api/features/users/user.dart';
 import 'package:users_api/features/users/user_detail_screen.dart';
 import 'package:users_api/features/users/widgets/user_tile.dart';
+import 'package:users_api/features/users/widgets/users_filter_row.dart';
 import 'package:users_api/features/users/widgets/users_header.dart';
 import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/core/api/describe_error.dart';
@@ -82,34 +83,12 @@ class UsersScreen extends StatelessWidget {
             shown: items.length,
             filtered: model.query.isNotEmpty,
           ),
-          _buildFilterRow(model),
+          UsersFilterRow(
+            onQueryChanged: model.setQuery,
+            onReload: model.loading ? null : model.load,
+          ),
           const SizedBox(height: 8),
           Expanded(child: body),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFilterRow(UsersModel model) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search by name or city',
-                isDense: true,
-              ),
-              onChanged: model.setQuery,
-            ),
-          ),
-          IconButton(
-            tooltip: 'Reload',
-            icon: const Icon(Icons.refresh),
-            onPressed: model.loading ? null : model.load,
-          ),
         ],
       ),
     );
