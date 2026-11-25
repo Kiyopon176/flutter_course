@@ -8,6 +8,7 @@ import 'package:users_api/features/settings/settings_screen.dart';
 import 'package:users_api/features/users/user.dart';
 import 'package:users_api/features/users/user_detail_screen.dart';
 import 'package:users_api/features/users/widgets/user_tile.dart';
+import 'package:users_api/features/users/widgets/users_header.dart';
 import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/core/api/describe_error.dart';
 
@@ -76,28 +77,14 @@ class UsersScreen extends StatelessWidget {
       body: Column(
         children: [
           if (model.fromCache) const OfflineBanner(),
-          _buildHeader(context, model),
+          UsersHeader(
+            total: model.total,
+            shown: items.length,
+            filtered: model.query.isNotEmpty,
+          ),
           _buildFilterRow(model),
           const SizedBox(height: 8),
           Expanded(child: body),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, UsersModel model) {
-    final shown = model.items.length;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Row(
-        children: [
-          Text('Directory', style: Theme.of(context).textTheme.titleLarge),
-          const Spacer(),
-          Text(
-            model.query.isEmpty
-                ? '${model.total} users'
-                : '$shown of ${model.total}',
-          ),
         ],
       ),
     );
