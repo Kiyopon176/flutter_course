@@ -7,7 +7,7 @@ import 'package:users_api/profile_screen.dart';
 import 'package:users_api/settings_screen.dart';
 import 'package:users_api/features/users/user.dart';
 import 'package:users_api/features/users/user_detail_screen.dart';
-import 'package:users_api/user_tile.dart';
+import 'package:users_api/features/users/widgets/user_tile.dart';
 import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/utils.dart';
 
