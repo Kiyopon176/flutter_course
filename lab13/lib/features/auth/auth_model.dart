@@ -3,7 +3,9 @@ import 'package:users_api/core/storage/secure_store.dart';
 
 /// Signed in or not. The token lives in the secure store, not only in memory.
 class AuthModel extends ChangeNotifier {
-  final _store = SecureStore();
+  AuthModel(this._store);
+
+  final SecureStore _store;
 
   String? email;
   String? loginError;

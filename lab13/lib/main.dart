@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:users_api/core/api/api_client.dart';
+import 'package:users_api/core/storage/secure_store.dart';
 import 'package:users_api/features/auth/auth_model.dart';
 import 'package:users_api/features/auth/login_screen.dart';
 import 'package:users_api/features/settings/settings_model.dart';
@@ -19,7 +20,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthModel()..restore()),
+        ChangeNotifierProvider(create: (_) => AuthModel(SecureStore())..restore()),
         ChangeNotifierProvider(create: (_) => SettingsModel()..load()),
         ChangeNotifierProvider(create: (_) => UsersModel(repo)..load()),
       ],
