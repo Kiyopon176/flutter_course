@@ -1,6 +1,6 @@
 import 'package:users_api/core/api/api_exception.dart';
 
-// What the user reads when something goes wrong.
+/// What the user reads when something goes wrong — one line per case of the sealed hierarchy.
 String describeError(ApiException e) => switch (e) {
   NoConnectionException() => 'No connection',
   TimeoutApiException() => 'The server is too slow',
