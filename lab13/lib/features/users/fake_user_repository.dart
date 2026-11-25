@@ -1,5 +1,6 @@
 import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/user.dart';
+import 'package:users_api/features/users/user_parsing.dart';
 import 'package:users_api/features/users/user_repository.dart';
 import 'package:users_api/features/users/users_result.dart';
 
@@ -60,7 +61,7 @@ class FakeUserRepository implements UserRepository {
   @override
   Future<UsersResult> getAll() async {
     await _call();
-    return UsersResult(_json.map(User.fromJson).toList());
+    return UsersResult(parseUsers(_json));
   }
 
   @override
@@ -68,12 +69,12 @@ class FakeUserRepository implements UserRepository {
     await _call();
     final json = _json.where((u) => u['id'] == id).firstOrNull;
     if (json == null) throw NotFoundException('/users/$id');
-    return User.fromJson(json);
+    return parseUser(json);
   }
 
   @override
   Future<User> create(User draft) async {
     await _call();
-    return User.fromJson({...draft.toJson(), 'id': _nextId++});
+    return parseUser({...draft.toJson(), 'id': _nextId++});
   }
 }

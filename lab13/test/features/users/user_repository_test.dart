@@ -40,6 +40,22 @@ void main() {
     });
   });
 
+  group('HttpUserRepository: the server broke the contract', () {
+    test('"lat" as a number → BadResponseException, not a crash', () async {
+      final broken = usersJson.replaceFirst('"-37.3159"', '-37.3159');
+      final repo = repoWith((_) async => http.Response(broken, 200));
+
+      await expectLater(repo.getAll(), throwsA(isA<BadResponseException>()));
+    });
+
+    test('a broken user by id → BadResponseException', () async {
+      final broken = user1Json.replaceFirst('"-37.3159"', '-37.3159');
+      final repo = repoWith((_) async => http.Response(broken, 200));
+
+      await expectLater(repo.getById(1), throwsA(isA<BadResponseException>()));
+    });
+  });
+
   group('HttpUserRepository.getAll', () {
     test('200 → two users, not from cache', () async {
       final repo = repoWith((_) async => http.Response(usersJson, 200));

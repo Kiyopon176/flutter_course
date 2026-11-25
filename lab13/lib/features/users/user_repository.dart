@@ -1,6 +1,7 @@
 import 'package:users_api/core/api/api_client.dart';
 import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/user.dart';
+import 'package:users_api/features/users/user_parsing.dart';
 import 'package:users_api/features/users/users_cache.dart';
 import 'package:users_api/features/users/users_result.dart';
 
@@ -22,10 +23,7 @@ class HttpUserRepository implements UserRepository {
   @override
   Future<UsersResult> getAll() async {
     try {
-      final json = await _api.get('/users');
-      final users = (json as List)
-          .map((e) => User.fromJson(e as Map<String, dynamic>))
-          .toList();
+      final users = parseUsers(await _api.get('/users'));
       _cache.save(users);
       return UsersResult(users);
     } on NoConnectionException {
@@ -38,13 +36,11 @@ class HttpUserRepository implements UserRepository {
 
   @override
   Future<User> getById(int id) async {
-    final json = await _api.get('/users/$id');
-    return User.fromJson(json as Map<String, dynamic>);
+    return parseUser(await _api.get('/users/$id'));
   }
 
   @override
   Future<User> create(User draft) async {
-    final json = await _api.post('/users', draft.toJson());
-    return User.fromJson(json as Map<String, dynamic>);
+    return parseUser(await _api.post('/users', draft.toJson()));
   }
 }
