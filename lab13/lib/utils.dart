@@ -1,4 +1,4 @@
-import 'package:users_api/api_exception.dart';
+import 'package:users_api/core/api/api_exception.dart';
 
 // What the user reads when something goes wrong.
 String describeError(ApiException e) => switch (e) {

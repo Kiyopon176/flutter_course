@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:users_api/api_exception.dart';
+import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/helpers.dart';
 
 /// The only class that knows about HTTP: status codes, JSON bodies, sockets.

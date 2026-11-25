@@ -1,5 +1,5 @@
 import 'package:users_api/api_client.dart';
-import 'package:users_api/api_exception.dart';
+import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/user.dart';
 import 'package:users_api/users_cache.dart';
 import 'package:users_api/users_result.dart';
