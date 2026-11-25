@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:users_api/secure_store.dart';
+import 'package:users_api/core/storage/secure_store.dart';
 
 /// Signed in or not. The token lives in the secure store, not only in memory.
 class AuthModel extends ChangeNotifier {
