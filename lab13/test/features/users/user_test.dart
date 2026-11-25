@@ -26,4 +26,14 @@ void main() {
       expect(() => User.fromJson(json), throwsA(isA<TypeError>()));
     });
   });
+
+  group('Geo.fromJson', () {
+    // The planted bug from the trace: "lat": -37.3159 (a number, not a string).
+    // #0 Geo.fromJson (user.dart:102:35) is where the claim `as String` fails.
+    test('"lat" as a number throws TypeError', () {
+      final json = <String, dynamic>{'lat': -37.3159, 'lng': '81.1496'};
+
+      expect(() => Geo.fromJson(json), throwsA(isA<TypeError>()));
+    });
+  });
 }
