@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:users_api/features/auth/auth_model.dart';
 import 'package:users_api/features/auth/login_screen.dart';
-import 'package:users_api/settings_model.dart';
+import 'package:users_api/features/settings/settings_model.dart';
 import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/features/users/users_screen.dart';
 
