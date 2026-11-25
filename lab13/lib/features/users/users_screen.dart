@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:users_api/features/users/widgets/add_user_dialog.dart';
 import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/widgets/offline_banner.dart';
-import 'package:users_api/profile_screen.dart';
+import 'package:users_api/features/profile/profile_screen.dart';
 import 'package:users_api/features/settings/settings_screen.dart';
 import 'package:users_api/features/users/user.dart';
 import 'package:users_api/features/users/user_detail_screen.dart';
