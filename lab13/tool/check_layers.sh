@@ -10,6 +10,11 @@ http=$(grep -rl "package:http" lib/ | grep -v -e core/api -e _repository.dart)
 # 2. package:flutter/material never in a model, a repository or core/api
 material=$(grep -rl "package:flutter/material" lib/ | grep -e _model.dart -e _repository.dart -e core/api)
 
+# 3. the real repository is constructed in one place only: main.dart
+#    (its own constructor declaration does not count)
+newrepo=$(grep -rn "HttpUserRepository(" lib/ | grep -v -e "^lib/main.dart:" -e "HttpUserRepository(this\.")
+
 [ -n "$http" ] && echo "$http"
 [ -n "$material" ] && echo "$material"
-[ -z "$http" ] && [ -z "$material" ]
+[ -n "$newrepo" ] && echo "$newrepo"
+[ -z "$http" ] && [ -z "$material" ] && [ -z "$newrepo" ]
