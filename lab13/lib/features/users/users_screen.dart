@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:users_api/core/api/describe_error.dart';
+import 'package:users_api/features/profile/profile_screen.dart';
+import 'package:users_api/features/settings/settings_screen.dart';
+import 'package:users_api/features/users/user.dart';
+import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/features/users/widgets/add_user_dialog.dart';
 import 'package:users_api/features/users/widgets/empty_view.dart';
 import 'package:users_api/features/users/widgets/error_view.dart';
 import 'package:users_api/features/users/widgets/offline_banner.dart';
-import 'package:users_api/features/profile/profile_screen.dart';
-import 'package:users_api/features/settings/settings_screen.dart';
-import 'package:users_api/features/users/user.dart';
-import 'package:users_api/features/users/user_detail_screen.dart';
-import 'package:users_api/features/users/widgets/user_tile.dart';
 import 'package:users_api/features/users/widgets/users_filter_row.dart';
 import 'package:users_api/features/users/widgets/users_header.dart';
-import 'package:users_api/features/users/users_model.dart';
-import 'package:users_api/core/api/describe_error.dart';
+import 'package:users_api/features/users/widgets/users_list.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({super.key});
@@ -23,7 +22,7 @@ class UsersScreen extends StatelessWidget {
     final error = model.error;
     final items = model.items;
 
-    Widget body;
+    final Widget body;
     if (model.loading) {
       body = const Center(child: CircularProgressIndicator());
     } else if (error != null) {
@@ -31,18 +30,7 @@ class UsersScreen extends StatelessWidget {
     } else if (items.isEmpty) {
       body = EmptyView(query: model.query);
     } else {
-      body = ListView.separated(
-        itemCount: items.length,
-        separatorBuilder: (_, _) => const Divider(height: 1),
-        itemBuilder: (context, i) => UserTile(
-          user: items[i],
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => UserDetailScreen(user: items[i]),
-            ),
-          ),
-        ),
-      );
+      body = UsersList(users: items);
     }
 
     return Scaffold(
@@ -52,28 +40,18 @@ class UsersScreen extends StatelessWidget {
           IconButton(
             tooltip: 'Profile',
             icon: const Icon(Icons.person),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const ProfileScreen()),
-            ),
+            onPressed: () => _open(context, const ProfileScreen()),
           ),
           IconButton(
             tooltip: 'Settings',
             icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
-            ),
+            onPressed: () => _open(context, const SettingsScreen()),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add user',
-        onPressed: () async {
-          final name = await showDialog<String>(
-            context: context,
-            builder: (_) => const AddUserDialog(),
-          );
-          if (name != null) await model.add(User.draft(name));
-        },
+        onPressed: () => _addUser(context, model),
         child: const Icon(Icons.person_add),
       ),
       body: Column(
@@ -93,5 +71,17 @@ class UsersScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _open(BuildContext context, Widget screen) => Navigator.of(
+    context,
+  ).push(MaterialPageRoute<void>(builder: (_) => screen));
+
+  Future<void> _addUser(BuildContext context, UsersModel model) async {
+    final name = await showDialog<String>(
+      context: context,
+      builder: (_) => const AddUserDialog(),
+    );
+    if (name != null) await model.add(User.draft(name));
   }
 }
