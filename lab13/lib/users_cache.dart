@@ -1,4 +1,4 @@
-import 'package:users_api/user.dart';
+import 'package:users_api/features/users/user.dart';
 
 /// Keeps the last list that came from the server, for offline mode.
 class UsersCache {

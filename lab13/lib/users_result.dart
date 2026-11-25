@@ -1,4 +1,4 @@
-import 'package:users_api/user.dart';
+import 'package:users_api/features/users/user.dart';
 
 /// What `getAll()` returns: the users and where they came from.
 class UsersResult {

@@ -5,7 +5,7 @@ import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/offline_banner.dart';
 import 'package:users_api/profile_screen.dart';
 import 'package:users_api/settings_screen.dart';
-import 'package:users_api/user.dart';
+import 'package:users_api/features/users/user.dart';
 import 'package:users_api/user_detail_screen.dart';
 import 'package:users_api/user_tile.dart';
 import 'package:users_api/users_model.dart';

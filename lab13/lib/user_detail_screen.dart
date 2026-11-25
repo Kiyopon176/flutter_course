@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:users_api/user.dart';
+import 'package:users_api/features/users/user.dart';
 
 class UserDetailScreen extends StatelessWidget {
   const UserDetailScreen({super.key, required this.user});

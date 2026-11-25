@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:users_api/helpers.dart';
-import 'package:users_api/user.dart';
+import 'package:users_api/features/users/user.dart';
 
 class UserTile extends StatelessWidget {
   const UserTile({super.key, required this.user, this.onTap});
