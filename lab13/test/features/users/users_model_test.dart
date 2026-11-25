@@ -1,8 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:users_api/core/api/api_client.dart';
 import 'package:users_api/core/api/api_exception.dart';
+import 'package:users_api/core/api/describe_error.dart';
+import 'package:users_api/features/users/user_repository.dart';
+import 'package:users_api/features/users/users_cache.dart';
 import 'package:users_api/features/users/users_model.dart';
 
 import '../../fakes/fake_user_repository.dart';
+import '../../fixtures/users_json.dart';
 
 void main() {
   group('UsersModel.load', () {
@@ -24,6 +31,25 @@ void main() {
       expect(model.error, isA<NoConnectionException>());
       expect(model.loading, isFalse);
     });
+  });
+
+  group('UsersModel with a server that broke the contract', () {
+    test(
+      '"lat" as a number → error is BadResponseException, no crash',
+      () async {
+        final broken = usersJson.replaceFirst('"-37.3159"', '-37.3159');
+        final api = ApiClient(
+          client: MockClient((_) async => http.Response(broken, 200)),
+        );
+        final model = UsersModel(HttpUserRepository(api, UsersCache()));
+
+        await model.load();
+
+        expect(model.error, isA<BadResponseException>());
+        expect(describeError(model.error!), 'Something went wrong');
+        expect(model.loading, isFalse);
+      },
+    );
   });
 
   group('UsersModel.setQuery', () {
