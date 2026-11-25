@@ -3,7 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// User preferences, persisted with SharedPreferencesAsync.
 class SettingsModel extends ChangeNotifier {
-  final _prefs = SharedPreferencesAsync();
+  SettingsModel(this._prefs);
+
+  final SharedPreferencesAsync _prefs;
 
   static const _darkKey = 'dark_mode';
 
