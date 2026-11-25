@@ -7,7 +7,7 @@ import 'package:users_api/features/users/users_cache.dart';
 
 /// loading / error / items for the users list.
 class UsersModel extends ChangeNotifier {
-  final _repo = UserRepository(ApiClient(), UsersCache());
+  final UserRepository _repo = HttpUserRepository(ApiClient(), UsersCache());
 
   bool loading = false;
   ApiException? error;
