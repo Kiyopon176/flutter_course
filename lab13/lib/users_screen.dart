@@ -8,7 +8,7 @@ import 'package:users_api/settings_screen.dart';
 import 'package:users_api/features/users/user.dart';
 import 'package:users_api/user_detail_screen.dart';
 import 'package:users_api/user_tile.dart';
-import 'package:users_api/users_model.dart';
+import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/utils.dart';
 
 class UsersScreen extends StatelessWidget {
