@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
-import 'package:users_api/core/api/api_client.dart';
 import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/user.dart';
 import 'package:users_api/features/users/user_repository.dart';
-import 'package:users_api/features/users/users_cache.dart';
 
 /// loading / error / items for the users list.
+///
+/// Asks for the interface; never says `new` to a repository.
 class UsersModel extends ChangeNotifier {
-  final UserRepository _repo = HttpUserRepository(ApiClient(), UsersCache());
+  UsersModel(this._repo);
+
+  final UserRepository _repo;
 
   bool loading = false;
   ApiException? error;

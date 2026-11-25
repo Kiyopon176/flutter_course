@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:users_api/core/api/api_client.dart';
 import 'package:users_api/features/auth/auth_model.dart';
 import 'package:users_api/features/auth/login_screen.dart';
 import 'package:users_api/features/settings/settings_model.dart';
+import 'package:users_api/features/users/user_repository.dart';
+import 'package:users_api/features/users/users_cache.dart';
 import 'package:users_api/features/users/users_model.dart';
 import 'package:users_api/features/users/users_screen.dart';
 
+/// The composition root: the only place that decides which implementation
+/// each model gets. Everything below receives its dependencies.
 void main() {
+  final api = ApiClient();
+  final UserRepository repo = HttpUserRepository(api, UsersCache());
+  // final UserRepository repo = FakeUserRepository();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthModel()..restore()),
         ChangeNotifierProvider(create: (_) => SettingsModel()..load()),
-        ChangeNotifierProvider(create: (_) => UsersModel()..load()),
+        ChangeNotifierProvider(create: (_) => UsersModel(repo)..load()),
       ],
       child: const UsersApp(),
     ),
