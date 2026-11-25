@@ -4,7 +4,7 @@ import 'package:users_api/auth_model.dart';
 import 'package:users_api/login_screen.dart';
 import 'package:users_api/settings_model.dart';
 import 'package:users_api/features/users/users_model.dart';
-import 'package:users_api/users_screen.dart';
+import 'package:users_api/features/users/users_screen.dart';
 
 void main() {
   runApp(
