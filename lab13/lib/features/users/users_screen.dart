@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:users_api/features/users/widgets/add_user_dialog.dart';
 import 'package:users_api/core/api/api_exception.dart';
+import 'package:users_api/features/users/widgets/empty_view.dart';
 import 'package:users_api/features/users/widgets/offline_banner.dart';
 import 'package:users_api/features/profile/profile_screen.dart';
 import 'package:users_api/features/settings/settings_screen.dart';
@@ -28,7 +29,7 @@ class UsersScreen extends StatelessWidget {
     } else if (error != null) {
       body = _buildError(error, model.load);
     } else if (items.isEmpty) {
-      body = _buildEmpty(model.query);
+      body = EmptyView(query: model.query);
     } else {
       body = ListView.separated(
         itemCount: items.length,
@@ -89,19 +90,6 @@ class UsersScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Expanded(child: body),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEmpty(String query) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.search_off, size: 48),
-          const SizedBox(height: 12),
-          Text(query.isEmpty ? 'No users yet' : 'Nobody matches "$query"'),
         ],
       ),
     );
