@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:users_api/features/auth/auth_model.dart';
-import 'package:users_api/helpers.dart';
+import 'package:users_api/core/format/initials.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

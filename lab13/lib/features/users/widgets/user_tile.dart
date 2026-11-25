@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:users_api/helpers.dart';
+import 'package:users_api/core/format/initials.dart';
 import 'package:users_api/features/users/user.dart';
 
 class UserTile extends StatelessWidget {
