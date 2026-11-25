@@ -11,14 +11,14 @@ Everything else is already checked against the repository.
 
 `git log --format='%ad %s' --date=short` on `main` (checked 2026-11-25):
 
-| Date | Commit |
+| Date | Commits |
 |---|---|
-| 2026-10-24 | Initial commit: Flutter course labs — **517 files, labs 1–8 at once** |
-| 2026-11-05 | lifted · lab9 · lab10 (three commits the same day) |
-| 2026-11-25 | lab13 starting point · `tool/check_layers.sh` · move api_exception |
+| 2026-10-24 | 1 — Initial commit: Flutter course labs — **517 files, labs 1–8 at once** |
+| 2026-11-05 | 3 — lifted · lab9 · lab10 |
+| 2026-11-25 | 40 — lab13 refactoring step by step, lab14, lab15 |
 
-Three green days in a month, and the first one is half the course in a single commit.
-**What the reviewer concludes:** "works in bursts and pushes at the end; can't see how the code grew; can't tell which lab was hard."
+44 commits, but on three days in a month; the first one is half the course in a single commit, and 40 of 44 land on the last day.
+**What the reviewer concludes:** "works in bursts and pushes at the end; can't see how labs 1–8 grew." The lab13 commits on 11-25 do read like a plan (one refactoring step each) — that part is the good example to point at.
 **What I do about it:** you cannot rewrite history now — so from this practice on, one commit per level, and the plan goes into the Lab 2 README as a "Decisions" section (see `lab2-readme/README.md`).
 
 ### Tree and history check (the Practice 14 command)
