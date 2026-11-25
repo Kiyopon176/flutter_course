@@ -4,14 +4,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:users_api/core/api/api_exception.dart';
-import 'package:users_api/helpers.dart';
 
 /// The only class that knows about HTTP: status codes, JSON bodies, sockets.
 /// Everything above it sees decoded JSON or an [ApiException].
 class ApiClient {
   ApiClient({
     http.Client? client,
-    this.host = apiHost,
+    this.host = defaultHost,
     this.timeout = const Duration(seconds: 10),
   }) : _client = client ?? http.Client();
 
@@ -19,6 +18,7 @@ class ApiClient {
   final String host;
   final Duration timeout;
 
+  static const defaultHost = 'jsonplaceholder.typicode.com';
   static const _headers = {'Accept': 'application/json'};
 
   Future<Object?> get(String path) =>
