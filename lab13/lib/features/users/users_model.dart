@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/user.dart';
@@ -42,7 +44,7 @@ class UsersModel extends ChangeNotifier {
       final result = await _repo.getAll();
       _all = result.users;
       fromCache = result.fromCache;
-      print('loaded ${_all.length} users (cache: $fromCache)');
+      log('loaded ${_all.length} users (cache: $fromCache)', name: 'users');
     } on ApiException catch (e) {
       error = e;
     } finally {

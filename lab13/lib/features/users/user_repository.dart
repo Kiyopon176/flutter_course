@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:users_api/core/api/api_client.dart';
 import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/user.dart';
@@ -29,7 +31,7 @@ class HttpUserRepository implements UserRepository {
     } on NoConnectionException {
       final cached = _cache.users;
       if (cached == null) rethrow;
-      print('offline: serving ${cached.length} cached users');
+      log('offline: serving ${cached.length} cached users', name: 'users');
       return UsersResult(cached, fromCache: true);
     }
   }

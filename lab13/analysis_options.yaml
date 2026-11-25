@@ -5,3 +5,7 @@ linter:
     prefer_const_constructors: true
     prefer_const_literals_to_create_immutables: true
     always_use_package_imports: true
+
+analyzer:
+  errors:
+    avoid_print: error

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:users_api/core/storage/secure_store.dart';
 
@@ -29,7 +31,7 @@ class AuthModel extends ChangeNotifier {
     await _store.writeSession(token: 'token-${email.hashCode}', email: email);
     this.email = email;
     loginError = null;
-    print('signed in as $email');
+    log('signed in', name: 'auth');
     notifyListeners();
   }
 
