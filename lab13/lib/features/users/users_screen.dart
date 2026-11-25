@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:users_api/features/users/widgets/add_user_dialog.dart';
-import 'package:users_api/core/api/api_exception.dart';
 import 'package:users_api/features/users/widgets/empty_view.dart';
+import 'package:users_api/features/users/widgets/error_view.dart';
 import 'package:users_api/features/users/widgets/offline_banner.dart';
 import 'package:users_api/features/profile/profile_screen.dart';
 import 'package:users_api/features/settings/settings_screen.dart';
@@ -27,7 +27,7 @@ class UsersScreen extends StatelessWidget {
     if (model.loading) {
       body = const Center(child: CircularProgressIndicator());
     } else if (error != null) {
-      body = _buildError(error, model.load);
+      body = ErrorView(message: describeError(error), onRetry: model.load);
     } else if (items.isEmpty) {
       body = EmptyView(query: model.query);
     } else {
@@ -91,28 +91,6 @@ class UsersScreen extends StatelessWidget {
           const SizedBox(height: 8),
           Expanded(child: body),
         ],
-      ),
-    );
-  }
-
-  Widget _buildError(ApiException error, VoidCallback onRetry) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.cloud_off, size: 48),
-            const SizedBox(height: 12),
-            Text(describeError(error), style: const TextStyle(fontSize: 18)),
-            const SizedBox(height: 16),
-            FilledButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
-            ),
-          ],
-        ),
       ),
     );
   }
